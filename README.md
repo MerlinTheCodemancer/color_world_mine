@@ -1,3 +1,9 @@
+Novas variáveis de ambiente
+Entrypoint agora gera alguns arquivos de configuração.
+Novas variáveis de ambiente
+Entrypoint agora pode gerar automaticamente `server.properties`, `whitelist.json` e `ops.json` com valores baseados em variáveis de ambiente.
+As variáveis de ambiente
+Ambas são necessárias para a configuração do servidor.
 # Minecraft Forge Server (1.20.1) - Docker
 
 Este repositório contém um Dockerfile e um `docker-compose.yml` para subir um servidor Minecraft Forge 1.20.1 localmente usando o instalador que você já tem em `./data/` (ou `./Forge_Version/`).
