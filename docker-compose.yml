@@ -16,11 +16,23 @@ services:
       ENABLE_WHITELIST: "true"
       ENFORCE_WHITELIST: "true"
       MOTD: "Servidor modpack no rocky linux"
+      SHOW_GUI: "false"
+      DISPLAY: "${DISPLAY}"
     volumes:
       - ./minecraft-data:/data
       - ./data:/opt/forge:ro
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
     tty: true
     stdin_open: true
+    restart: unless-stopped
+
+  zerotier-one:
+    image: zerotier/zerotier:latest
+    container_name: zerotier-one
+    volumes:
+      - ./zerotier-one:/var/lib/zerotier-one
+    network_mode: "host"
+    privileged: true
     restart: unless-stopped
 
 volumes:

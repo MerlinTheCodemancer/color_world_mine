@@ -106,4 +106,20 @@ if [ ! -f "${DATA_DIR}/ops.json" ]; then
 fi
 
 log "Starting Forge server using ${SERVER_JAR} with -Xms${INIT_MEMORY} -Xmx${MAX_MEMORY}"
+# If user wants GUI and run.sh exists, try to run it (forward X11 socket if available)
+SHOW_GUI=${SHOW_GUI:-false}
+RUN_SH="${DATA_DIR}/run.sh"
+if [ "${SHOW_GUI,,}" = "true" ] && [ -x "${RUN_SH}" -o -f "${RUN_SH}" ]; then
+  log "SHOW_GUI=true and run script exists. Checking for X11 socket..."
+  if [ -d "/tmp/.X11-unix" ]; then
+    log "X11 socket available; attempting to exec run.sh (GUI)."
+    # Ensure run.sh has LF endings
+    sed -i 's/\r$//' "${RUN_SH}" || true
+    chmod +x "${RUN_SH}" || true
+    exec "${RUN_SH}"
+  else
+    log "No X11 socket found in container. Falling back to headless nogui start."
+  fi
+fi
+
 exec java -Xms${INIT_MEMORY} -Xmx${MAX_MEMORY} -jar "${SERVER_JAR}" nogui

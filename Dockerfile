@@ -14,7 +14,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Copy entrypoint script
 COPY start-forge.sh /usr/local/bin/start-forge.sh
-RUN chmod +x /usr/local/bin/start-forge.sh
+# Normalize line endings and ensure executable
+RUN sed -i 's/\r$//' /usr/local/bin/start-forge.sh && \
+  chmod +x /usr/local/bin/start-forge.sh
 
 # Expose default minecraft port
 EXPOSE 25565
