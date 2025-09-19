@@ -1,3 +1,6 @@
+Reorganizar isso
+
+
 Novas variáveis de ambiente
 Entrypoint agora gera alguns arquivos de configuração.
 Novas variáveis de ambiente
