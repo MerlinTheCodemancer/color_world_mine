@@ -1,1 +1,4 @@
 zerotier-one/authtoken.secret
+
+# ignore zerotier data
+zerotier-one/
